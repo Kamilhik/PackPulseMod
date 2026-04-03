@@ -8,7 +8,9 @@ Open-source Fabric mod updater for private packs.
 
 PackPulse reads a remote `manifest.json` at game startup, shows what files will be downloaded, syncs missing/changed files, and closes Minecraft if mods were updated.
 
-`http://IP/...` and `https://domain/...` are both supported.
+Both URL types are supported:
+- `http://IP/...`
+- `https://domain/...`
 
 ### Quick client setup
 
@@ -30,12 +32,28 @@ Config example:
 }
 ```
 
-### Server automation scripts (2 versions)
+### Server scripts (download directly from GitHub)
 
-Put pack files in:
+Create folders on your Linux server (Ubuntu/Debian):
+
+```bash
+sudo mkdir -p /opt/packpulse/scripts /opt/packpulse/server-pack
+cd /opt/packpulse
+```
+
+Download scripts directly from GitHub:
+
+```bash
+curl -fsSL -o scripts/generate_manifest.py https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/generate_manifest.py
+curl -fsSL -o scripts/deploy_http_ip.sh https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/deploy_http_ip.sh
+curl -fsSL -o scripts/deploy_https_letsencrypt.sh https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/deploy_https_letsencrypt.sh
+chmod +x scripts/deploy_http_ip.sh scripts/deploy_https_letsencrypt.sh
+```
+
+Put your files into:
 
 ```text
-server-pack/
+/opt/packpulse/server-pack/
   mods/
   config/
   resourcepacks/
@@ -43,36 +61,23 @@ server-pack/
   options.txt (optional)
 ```
 
-Then on your Linux server (Ubuntu/Debian):
-
-1. Clone your GitHub repo.
-2. Go to repo folder.
-3. Run one script:
+Run one script:
 
 HTTP by IP:
 
 ```bash
-chmod +x scripts/*.sh
+cd /opt/packpulse
 sudo ./scripts/deploy_http_ip.sh --server-ip 45.194.66.26
 ```
 
 HTTPS by domain + Let's Encrypt:
 
 ```bash
-chmod +x scripts/*.sh
+cd /opt/packpulse
 sudo ./scripts/deploy_https_letsencrypt.sh --domain files.example.com --email you@example.com
 ```
 
-What scripts do automatically:
-
-1. Install packages (`nginx`, `python3`; and `certbot` for HTTPS script).
-2. Copy files from `server-pack` to `/var/www/packpulse-pack`.
-3. Generate `manifest.json` with SHA-256 hashes and URLs.
-4. Configure Nginx endpoint `/packpulse/`.
-5. For HTTPS script: request and configure Let's Encrypt certificate.
-6. Print ready `manifestUrl` for client config.
-
-When you update files, run the same script again.
+After pack updates, run the same deploy script again.
 
 ### Build from source
 
@@ -94,7 +99,9 @@ build/libs/packpulse-<version>.jar
 
 PackPulse при запуске игры читает удаленный `manifest.json`, показывает список файлов для скачивания, синхронизирует недостающие/измененные файлы и закрывает Minecraft, если обновились моды.
 
-Поддерживаются оба варианта ссылки: `http://IP/...` и `https://домен/...`.
+Поддерживаются оба варианта ссылки:
+- `http://IP/...`
+- `https://домен/...`
 
 ### Быстрая настройка клиента
 
@@ -116,12 +123,28 @@ PackPulse при запуске игры читает удаленный `manife
 }
 ```
 
-### Автоматические серверные скрипты (2 версии)
+### Серверные скрипты (скачивание напрямую с GitHub)
+
+Создай папки на Linux-сервере (Ubuntu/Debian):
+
+```bash
+sudo mkdir -p /opt/packpulse/scripts /opt/packpulse/server-pack
+cd /opt/packpulse
+```
+
+Скачай скрипты напрямую из GitHub:
+
+```bash
+curl -fsSL -o scripts/generate_manifest.py https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/generate_manifest.py
+curl -fsSL -o scripts/deploy_http_ip.sh https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/deploy_http_ip.sh
+curl -fsSL -o scripts/deploy_https_letsencrypt.sh https://raw.githubusercontent.com/Kamilhik/PackPulseMod/main/scripts/deploy_https_letsencrypt.sh
+chmod +x scripts/deploy_http_ip.sh scripts/deploy_https_letsencrypt.sh
+```
 
 Положи файлы сборки в:
 
 ```text
-server-pack/
+/opt/packpulse/server-pack/
   mods/
   config/
   resourcepacks/
@@ -129,36 +152,23 @@ server-pack/
   options.txt (необязательно)
 ```
 
-Дальше на Linux-сервере (Ubuntu/Debian):
-
-1. Клонируй репозиторий с GitHub.
-2. Перейди в папку репозитория.
-3. Запусти один из скриптов:
+Запусти один скрипт:
 
 HTTP по IP:
 
 ```bash
-chmod +x scripts/*.sh
+cd /opt/packpulse
 sudo ./scripts/deploy_http_ip.sh --server-ip 45.194.66.26
 ```
 
 HTTPS через домен + Let's Encrypt:
 
 ```bash
-chmod +x scripts/*.sh
+cd /opt/packpulse
 sudo ./scripts/deploy_https_letsencrypt.sh --domain files.example.com --email you@example.com
 ```
 
-Что скрипты делают автоматически:
-
-1. Ставят пакеты (`nginx`, `python3`, а для HTTPS еще `certbot`).
-2. Копируют файлы из `server-pack` в `/var/www/packpulse-pack`.
-3. Генерируют `manifest.json` с SHA-256 и ссылками.
-4. Настраивают Nginx на путь `/packpulse/`.
-5. Для HTTPS: выпускают и подключают сертификат Let's Encrypt.
-6. Печатают готовую `manifestUrl` для клиента.
-
-После обновления модов/конфигов просто запусти тот же скрипт снова.
+После обновления модов/конфигов просто запусти тот же deploy-скрипт снова.
 
 ## License
 
