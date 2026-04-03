@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+out/
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+server-pack/*
+!server-pack/README.md
