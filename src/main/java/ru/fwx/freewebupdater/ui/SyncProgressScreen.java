@@ -29,7 +29,7 @@ public final class SyncProgressScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context);
+        context.fill(0, 0, width, height, 0xFF0F1724);
         int centerX = width / 2;
         int top = height / 3;
 

@@ -14,7 +14,7 @@ Both URL types are supported:
 
 ### Quick client setup
 
-1. Install Fabric Loader for Minecraft `1.20.1`.
+1. Install Fabric Loader for Minecraft `1.20.1` or `1.21.1`.
 2. Put `packpulse-1.0.0.jar` into `.minecraft/mods`.
 3. Run Minecraft once to create config, then close the game.
 4. Edit `.minecraft/config/packpulse.json` and set `manifestUrl`.
@@ -105,7 +105,7 @@ PackPulse при запуске игры читает удаленный `manife
 
 ### Быстрая настройка клиента
 
-1. Установи Fabric Loader для Minecraft `1.20.1`.
+1. Установи Fabric Loader для Minecraft `1.20.1` или `1.21.1`.
 2. Положи `packpulse-1.0.0.jar` в `.minecraft/mods`.
 3. Запусти Minecraft один раз (создастся конфиг), затем закрой игру.
 4. Открой `.minecraft/config/packpulse.json` и укажи `manifestUrl`.
