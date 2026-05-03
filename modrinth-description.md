@@ -26,7 +26,7 @@ PackPulseMod is **not tied to any specific server**. You host your own files and
 | --- | --- |
 | Fabric | `1.20.1` - `1.20.6` |
 | Fabric | `1.21` - `1.21.11` |
-| NeoForge legacy | `1.20.1` - `1.20.6` |
+| NeoForge | `1.20.5` - `1.20.6` |
 | NeoForge | `1.21` - `1.21.11` |
 
 ## Client Setup
@@ -135,7 +135,7 @@ PackPulseMod **не привязан к конкретному серверу**.
 | --- | --- |
 | Fabric | `1.20.1` - `1.20.6` |
 | Fabric | `1.21` - `1.21.11` |
-| NeoForge legacy | `1.20.1` - `1.20.6` |
+| NeoForge | `1.20.5` - `1.20.6` |
 | NeoForge | `1.21` - `1.21.11` |
 
 ## Настройка Клиента

@@ -145,31 +145,35 @@ project(':neoforge-1.21') {
 }
 
 project(':neoforge-1.20') {
-    apply plugin: 'net.neoforged.moddev.legacyforge'
+    apply plugin: 'net.neoforged.moddev'
 
     base {
         archivesName = "${rootProject.modInfo.archivesBase}-neoforge-1.20"
     }
 
     java {
-        toolchain.languageVersion = JavaLanguageVersion.of(17)
+        toolchain.languageVersion = JavaLanguageVersion.of(21)
     }
 
-    legacyForge {
-        enable {
-            neoForgeVersion = '1.20.1-47.1.106'
+    neoForge {
+        version = '20.6.139'
+
+        mods {
+            "${rootProject.modInfo.id}" {
+                sourceSet(sourceSets.main)
+            }
         }
     }
 
     sourceSets {
         main {
-            java.srcDirs = [sharedJava, legacyNeoForgeJava]
+            java.srcDirs = [sharedJava, neoforgeJava]
             resources.srcDirs = [sharedResources, neoforgeResources]
         }
     }
 
     processResources {
-        var replaceProperties = neoForgeProperties('[1.20.1,1.21)', '[47.1.106,)')
+        var replaceProperties = neoForgeProperties('[1.20.5,1.21)', '[20.6,)')
         inputs.properties replaceProperties
         filesMatching('META-INF/neoforge.mods.toml') {
             expand replaceProperties

@@ -70,7 +70,7 @@ public final class UpdateConfirmScreen extends Screen {
         int panelBottom = this.panelBottom();
 
         graphics.fill(panelX, panelTop, panelX + panelWidth, panelBottom, PANEL_BACKGROUND);
-        graphics.renderOutline(panelX, panelTop, panelWidth, panelBottom - panelTop, PANEL_BORDER);
+        renderBorder(graphics, panelX, panelTop, panelWidth, panelBottom - panelTop, PANEL_BORDER);
         graphics.fill(panelX, panelTop, panelX + panelWidth, panelTop + 2, PANEL_ACCENT);
 
         graphics.drawCenteredString(this.font, Component.literal("PackPulseMod"), this.width / 2, panelTop + 14, TEXT_PRIMARY);
@@ -128,7 +128,7 @@ public final class UpdateConfirmScreen extends Screen {
 
     private void renderFileList(GuiGraphics graphics, int mouseX, int mouseY, int x, int y, int width, int height) {
         graphics.fill(x, y, x + width, y + height, 0xB80F1724);
-        graphics.renderOutline(x, y, width, height, 0xFF24344A);
+        renderBorder(graphics, x, y, width, height, 0xFF24344A);
 
         if (this.files.isEmpty()) {
             graphics.drawCenteredString(this.font, Component.literal("Нет файлов для установки"), x + width / 2, y + 14, TEXT_SECONDARY);
@@ -151,15 +151,23 @@ public final class UpdateConfirmScreen extends Screen {
             }
 
             int boxColor = selected ? PANEL_ACCENT : 0xFF6B7B91;
-            graphics.renderOutline(x + 8, rowY, 10, 10, boxColor);
+            renderBorder(graphics, x + 8, rowY, 10, 10, boxColor);
             if (selected) {
                 graphics.fill(x + 11, rowY + 3, x + 16, rowY + 8, PANEL_ACCENT);
             }
 
-            graphics.drawString(this.font, trimToWidth(displayName(path), textWidth), x + 26, rowY, selected ? TEXT_PRIMARY : 0xFF91A0B6);
+            String label = trimToWidth(displayName(path), textWidth);
+            graphics.drawCenteredString(this.font, label, x + 26 + this.font.width(label) / 2, rowY, selected ? TEXT_PRIMARY : 0xFF91A0B6);
         }
 
         this.renderScrollbar(graphics, x, y, width, height);
+    }
+
+    private static void renderBorder(GuiGraphics graphics, int x, int y, int width, int height, int color) {
+        graphics.fill(x, y, x + width, y + 1, color);
+        graphics.fill(x, y + height - 1, x + width, y + height, color);
+        graphics.fill(x, y, x + 1, y + height, color);
+        graphics.fill(x + width - 1, y, x + width, y + height, color);
     }
 
     private void renderScrollbar(GuiGraphics graphics, int x, int y, int width, int height) {

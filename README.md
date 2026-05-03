@@ -37,7 +37,7 @@ Choose one jar for your loader and Minecraft line:
 | --- | --- | --- |
 | `PackPulseMod-1.0.0-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
 | `PackPulseMod-1.0.0-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
-| `PackPulseMod-1.0.0-neoforge-mc1.20.x.jar` | NeoForge legacy | `1.20.1` - `1.20.6` |
+| `PackPulseMod-1.0.0-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
 | `PackPulseMod-1.0.0-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
 
 The 4-jar multi-version layout builds successfully. Before publishing a public release, test the edge versions of each range in a real Minecraft client.
@@ -160,8 +160,7 @@ neoforge-1.21/build/libs/
 ```text
 src/shared          shared updater, sync, config, and UI code
 src/fabric          Fabric client entrypoint and fabric.mod.json
-src/neoforge        modern NeoForge client entrypoint
-src/legacyneoforge  NeoForge legacy / Forge 1.20.1 entrypoint
+src/neoforge        NeoForge client entrypoint
 ```
 
 ## Русский
@@ -198,7 +197,7 @@ PackPulseMod не привязан к одному серверу или одн�
 | --- | --- | --- |
 | `PackPulseMod-1.0.0-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
 | `PackPulseMod-1.0.0-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
-| `PackPulseMod-1.0.0-neoforge-mc1.20.x.jar` | NeoForge legacy | `1.20.1` - `1.20.6` |
+| `PackPulseMod-1.0.0-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
 | `PackPulseMod-1.0.0-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
 
 Схема на 4 jar собирается успешно. Перед публичным релизом лучше проверить запуск на крайних версиях каждого диапазона.
@@ -321,8 +320,7 @@ neoforge-1.21/build/libs/
 ```text
 src/shared          общий код обновления, синхронизации, конфига и UI
 src/fabric          Fabric entrypoint и fabric.mod.json
-src/neoforge        entrypoint для современного NeoForge
-src/legacyneoforge  entrypoint для NeoForge legacy / Forge 1.20.1
+src/neoforge        entrypoint для NeoForge
 ```
 
 ## License
