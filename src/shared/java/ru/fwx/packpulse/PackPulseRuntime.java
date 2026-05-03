@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public final class PackPulseRuntime {
     public static final String MOD_ID = "packpulse";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    private static final long CLIENT_READY_TIMEOUT_MILLIS = TimeUnit.MINUTES.toMillis(5);
 
     private PackPulseRuntime() {
     }
@@ -44,6 +45,8 @@ public final class PackPulseRuntime {
         SyncProgressScreen progressScreen = null;
 
         try {
+            waitForClientReady();
+
             PackSyncService syncService = new PackSyncService(gameDir, config);
             PackManifest manifest = syncService.loadManifest();
             UpdatePlan plan = syncService.buildUpdatePlan(manifest);
@@ -100,6 +103,25 @@ public final class PackPulseRuntime {
                 Component.literal(String.valueOf(ex.getMessage()))
             );
         }
+    }
+
+    private static void waitForClientReady() throws InterruptedException {
+        Minecraft client = Minecraft.getInstance();
+        if (client == null) {
+            return;
+        }
+
+        long deadline = System.currentTimeMillis() + CLIENT_READY_TIMEOUT_MILLIS;
+        while (System.currentTimeMillis() < deadline) {
+            if (client.screen != null || client.player != null) {
+                LOGGER.info("Minecraft client is ready, starting pack sync.");
+                return;
+            }
+
+            Thread.sleep(250L);
+        }
+
+        LOGGER.warn("Minecraft client readiness timeout reached, starting pack sync anyway.");
     }
 
     private static List<String> promptDownloadInGame(UpdatePlan plan) {
