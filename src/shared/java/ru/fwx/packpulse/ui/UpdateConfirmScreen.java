@@ -1,8 +1,8 @@
 package ru.fwx.packpulse.ui;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -43,17 +43,17 @@ public final class UpdateConfirmScreen extends Screen {
         int buttonWidth = Math.min(126, (panelWidth - 44) / 3);
 
         this.selectedButton = this.addRenderableWidget(
-            Button.builder(Component.literal("Ð¡ÐºÐ°Ñ‡Ð°Ñ‚ÑŒ"), button -> this.complete(true))
+            Button.builder(Component.literal("Скачать"), button -> this.complete(true))
                 .bounds(panelX + 14, buttonY, buttonWidth, 20)
                 .build()
         );
         this.addRenderableWidget(
-            Button.builder(Component.literal("Ð¡ÐºÐ°Ñ‡Ð°Ñ‚ÑŒ Ð²ÑÑ‘"), button -> this.completeAll())
+            Button.builder(Component.literal("Скачать все"), button -> this.completeAll())
                 .bounds(panelX + 20 + buttonWidth, buttonY, buttonWidth, 20)
                 .build()
         );
         this.addRenderableWidget(
-            Button.builder(Component.literal("ÐžÑ‚Ð¼ÐµÐ½Ð°"), button -> this.complete(false))
+            Button.builder(Component.literal("Отмена"), button -> this.complete(false))
                 .bounds(panelX + panelWidth - buttonWidth - 14, buttonY, buttonWidth, 20)
                 .build()
         );
@@ -76,7 +76,7 @@ public final class UpdateConfirmScreen extends Screen {
         graphics.drawCenteredString(this.font, Component.literal("PackPulseMod"), this.width / 2, panelTop + 14, TEXT_PRIMARY);
         graphics.drawCenteredString(
             this.font,
-            Component.literal("Ð’Ñ‹Ð±Ñ€Ð°Ð½Ð¾: " + this.selectedFiles.size() + " Ð¸Ð· " + this.files.size()),
+            Component.literal("Выбрано: " + this.selectedFiles.size() + " из " + this.files.size()),
             this.width / 2,
             panelTop + 30,
             TEXT_SECONDARY
@@ -131,7 +131,7 @@ public final class UpdateConfirmScreen extends Screen {
         graphics.renderOutline(x, y, width, height, 0xFF24344A);
 
         if (this.files.isEmpty()) {
-            graphics.drawCenteredString(this.font, Component.literal("ÐÐµÑ‚ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð´Ð»Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ¸"), x + width / 2, y + 14, TEXT_SECONDARY);
+            graphics.drawCenteredString(this.font, Component.literal("Нет файлов для установки"), x + width / 2, y + 14, TEXT_SECONDARY);
             return;
         }
 
@@ -217,7 +217,7 @@ public final class UpdateConfirmScreen extends Screen {
         }
         int selectedCount = this.selectedFiles.size();
         this.selectedButton.active = selectedCount > 0;
-        this.selectedButton.setMessage(Component.literal("Ð¡ÐºÐ°Ñ‡Ð°Ñ‚ÑŒ (" + selectedCount + ")"));
+        this.selectedButton.setMessage(Component.literal("Скачать (" + selectedCount + ")"));
     }
 
     private int panelTop() {
@@ -273,4 +273,3 @@ public final class UpdateConfirmScreen extends Screen {
         return extensions;
     }
 }
-

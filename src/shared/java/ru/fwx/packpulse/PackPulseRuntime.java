@@ -1,6 +1,7 @@
 package ru.fwx.packpulse;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,7 @@ public final class PackPulseRuntime {
             PackSyncService syncService = new PackSyncService(gameDir, config);
             PackManifest manifest = syncService.loadManifest();
             UpdatePlan plan = syncService.buildUpdatePlan(manifest);
+            LOGGER.info("Manifest loaded: {} files, {} files require download.", manifest.files().size(), plan.filesToDownload().size());
             Set<String> selectedFilePaths = null;
 
             if (!plan.isEmpty()) {
@@ -113,7 +115,7 @@ public final class PackPulseRuntime {
 
         long deadline = System.currentTimeMillis() + CLIENT_READY_TIMEOUT_MILLIS;
         while (System.currentTimeMillis() < deadline) {
-            if (client.screen != null || client.player != null) {
+            if (client.screen instanceof TitleScreen || client.player != null) {
                 LOGGER.info("Minecraft client is ready, starting pack sync.");
                 return;
             }
