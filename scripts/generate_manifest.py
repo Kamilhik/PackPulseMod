@@ -61,17 +61,17 @@ def collect_files(pack_root: Path, base_url: str) -> list[dict[str, str]]:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate PackPulse manifest.json")
+    parser = argparse.ArgumentParser(description="Generate PackPulseMod manifest.json")
     parser.add_argument("--pack-root", required=True, help="Folder with mods/config/resourcepacks/shaderpacks")
     parser.add_argument("--base-url", required=True, help="Base URL for files, e.g. https://domain.com/packpulse")
     parser.add_argument("--output", required=True, help="Output path for manifest.json")
     parser.add_argument("--name", default="PackPulse Pack", help="Manifest pack name")
     parser.add_argument("--version", default=datetime.now(timezone.utc).strftime("%Y.%m.%d-%H%M%S"), help="Pack version")
-    parser.add_argument("--minecraft-version", default="1.20.1", help="Minecraft version")
-    parser.add_argument("--loader", default="fabric", help="Loader name")
-    parser.add_argument("--fabric-loader-version", default="", help="Fabric loader version")
-    parser.add_argument("--version-id", default="packpulse", help="Version id")
-    parser.add_argument("--profile-name", default="PackPulse", help="Profile name")
+    parser.add_argument("--minecraft-version", default="1.21.1", help="Minecraft version")
+    parser.add_argument("--loader", default="neoforge", help="Loader name")
+    parser.add_argument("--neoforge-version", default="21.1.228", help="NeoForge version")
+    parser.add_argument("--version-id", default="packpulse-pack", help="Version id")
+    parser.add_argument("--profile-name", default="PackPulse Pack", help="Profile name")
     return parser.parse_args()
 
 
@@ -88,7 +88,7 @@ def main() -> None:
         "version": args.version,
         "minecraftVersion": args.minecraft_version,
         "loader": args.loader,
-        "fabricLoaderVersion": args.fabric_loader_version,
+        "neoForgeVersion": args.neoforge_version,
         "versionId": args.version_id,
         "profileName": args.profile_name,
         "files": files,

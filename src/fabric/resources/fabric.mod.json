@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": ["${mod_authors}"],
+  "license": "${mod_license}",
+  "icon": "assets/packpulse/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ru.fwx.packpulse.PackPulseFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${fabric_loader_min}",
+    "minecraft": "${minecraft_range}",
+    "java": ">=17"
+  }
+}

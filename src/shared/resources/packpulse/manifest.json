@@ -1,0 +1,9 @@
+{
+  "name": "PackPulse Example Pack",
+  "version": "example",
+  "minecraftVersion": "1.20.1",
+  "loader": "fabric",
+  "versionId": "packpulse-example",
+  "profileName": "PackPulse Example",
+  "files": []
+}

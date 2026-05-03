@@ -7,14 +7,14 @@ PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 DOMAIN=""
 EMAIL=""
 PACK_SOURCE="${PROJECT_DIR}/server-pack"
-WEB_ROOT="/var/www/packpulse-pack"
+WEB_ROOT="/var/www/packpulse"
 SITE_NAME="packpulse-https"
 PACK_NAME="PackPulse Pack"
 PACK_VERSION="$(date +%Y.%m.%d-%H%M%S)"
-MINECRAFT_VERSION="1.20.1"
-FABRIC_LOADER_VERSION=""
-PROFILE_NAME="PackPulse"
-VERSION_ID="packpulse"
+MINECRAFT_VERSION="1.21.1"
+NEOFORGE_VERSION="21.1.228"
+PROFILE_NAME="PackPulse Pack"
+VERSION_ID="packpulse-pack"
 
 usage() {
   cat <<EOF
@@ -29,13 +29,13 @@ Optional:
   --pack-source <path>           Source folder with mods/config/resourcepacks/shaderpacks
                                  Default: ${PROJECT_DIR}/server-pack
   --web-root <path>              Nginx web root for pack files
-                                 Default: /var/www/packpulse-pack
+                                 Default: /var/www/packpulse
   --site-name <name>             Nginx site file name
                                  Default: packpulse-https
   --pack-name <name>             Manifest "name" field
   --pack-version <version>       Manifest "version" field
-  --minecraft-version <version>  Manifest minecraftVersion (default: 1.20.1)
-  --fabric-loader-version <ver>  Manifest fabricLoaderVersion
+  --minecraft-version <version>  Manifest minecraftVersion (default: 1.21.1)
+  --neoforge-version <version>   Manifest neoForgeVersion
   --profile-name <name>          Manifest profileName
   --version-id <id>              Manifest versionId
 EOF
@@ -51,7 +51,7 @@ while [[ $# -gt 0 ]]; do
     --pack-name) PACK_NAME="${2:-}"; shift 2 ;;
     --pack-version) PACK_VERSION="${2:-}"; shift 2 ;;
     --minecraft-version) MINECRAFT_VERSION="${2:-}"; shift 2 ;;
-    --fabric-loader-version) FABRIC_LOADER_VERSION="${2:-}"; shift 2 ;;
+    --neoforge-version) NEOFORGE_VERSION="${2:-}"; shift 2 ;;
     --profile-name) PROFILE_NAME="${2:-}"; shift 2 ;;
     --version-id) VERSION_ID="${2:-}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
@@ -108,7 +108,7 @@ python3 "${SCRIPT_DIR}/generate_manifest.py" \
   --name "${PACK_NAME}" \
   --version "${PACK_VERSION}" \
   --minecraft-version "${MINECRAFT_VERSION}" \
-  --fabric-loader-version "${FABRIC_LOADER_VERSION}" \
+  --neoforge-version "${NEOFORGE_VERSION}" \
   --profile-name "${PROFILE_NAME}" \
   --version-id "${VERSION_ID}"
 
@@ -128,7 +128,7 @@ server {
 
     location / {
         add_header Content-Type text/plain;
-        return 200 "PackPulse HTTPS server is running\n";
+        return 200 "PackPulseMod HTTPS server is running\n";
     }
 }
 EOF
