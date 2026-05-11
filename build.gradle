@@ -7,7 +7,7 @@ plugins {
 ext.modInfo = [
     id          : 'packpulse',
     name        : 'PackPulseMod',
-    version     : '1.0.0',
+    version     : '1.0.1',
     group       : 'ru.fwx.packpulse',
     license     : 'MIT',
     authors     : 'Kamilchik',

@@ -36,10 +36,10 @@ Choose one jar for your loader and Minecraft line:
 
 | File | Loader | Minecraft versions |
 | --- | --- | --- |
-| `PackPulseMod-1.0.0-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
-| `PackPulseMod-1.0.0-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
-| `PackPulseMod-1.0.0-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
-| `PackPulseMod-1.0.0-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
+| `PackPulseMod-1.0.1-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
+| `PackPulseMod-1.0.1-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
+| `PackPulseMod-1.0.1-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
+| `PackPulseMod-1.0.1-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
 
 The 4-jar multi-version layout builds successfully. Before publishing a public release, test the edge versions of each range in a real Minecraft client.
 
@@ -197,10 +197,10 @@ PackPulseMod не привязан к одному серверу или одн�
 
 | Файл | Лоадер | Версии Minecraft |
 | --- | --- | --- |
-| `PackPulseMod-1.0.0-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
-| `PackPulseMod-1.0.0-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
-| `PackPulseMod-1.0.0-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
-| `PackPulseMod-1.0.0-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
+| `PackPulseMod-1.0.1-fabric-mc1.20.x.jar` | Fabric | `1.20.1` - `1.20.6` |
+| `PackPulseMod-1.0.1-fabric-mc1.21.x.jar` | Fabric | `1.21` - `1.21.11` |
+| `PackPulseMod-1.0.1-neoforge-mc1.20.5-1.20.6.jar` | NeoForge | `1.20.5` - `1.20.6` |
+| `PackPulseMod-1.0.1-neoforge-mc1.21.x.jar` | NeoForge | `1.21` - `1.21.11` |
 
 Схема на 4 jar собирается успешно. Перед публичным релизом лучше проверить запуск на крайних версиях каждого диапазона.
 
