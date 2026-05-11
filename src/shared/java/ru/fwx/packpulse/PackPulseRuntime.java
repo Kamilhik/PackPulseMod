@@ -11,6 +11,7 @@ import ru.fwx.packpulse.sync.PackSyncResult;
 import ru.fwx.packpulse.sync.PackSyncService;
 import ru.fwx.packpulse.sync.SyncProgressInfo;
 import ru.fwx.packpulse.sync.UpdatePlan;
+import ru.fwx.packpulse.ui.RestartRequiredScreen;
 import ru.fwx.packpulse.ui.SyncProgressScreen;
 import ru.fwx.packpulse.ui.UpdateConfirmScreen;
 
@@ -165,12 +166,12 @@ public final class PackPulseRuntime {
     private static void handleRestart(PackSyncResult result) {
         notifyPlayer(
             Component.literal("Pack updated"),
-            Component.literal("Updated files: " + result.updatedFiles() + ". Minecraft will close to apply mod updates.")
+            Component.literal("Updated files: " + result.updatedFiles() + ". Restart Minecraft to apply mod updates.")
         );
 
         Minecraft client = Minecraft.getInstance();
         if (client != null) {
-            client.execute(client::stop);
+            client.execute(() -> client.setScreen(new RestartRequiredScreen(result.updatedFiles())));
         } else {
             notifyPlayer(
                 Component.literal("Restart required"),

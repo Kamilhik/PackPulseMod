@@ -17,8 +17,9 @@ PackPulseMod is **not tied to any specific server**. You host your own files and
 - Shows clean mod/file names without `.jar`, `.zip`, `.txt`, etc.
 - Has a `Download all` button
 - Supports HTTP and HTTPS manifest URLs
+- Supports safe explicit deletion via the manifest `delete` list
 - Can optionally remove stale files that are no longer in the manifest
-- Closes Minecraft when updated `.jar` mods require a restart
+- Shows a restart-required screen after `.jar` mod updates instead of closing Minecraft immediately
 
 ## Supported Builds
 
@@ -73,7 +74,7 @@ server-pack/
 
 ## Manifest
 
-PackPulseMod expects a JSON manifest with file paths, download URLs, and SHA-256 hashes. The repository includes scripts that can generate and deploy this manifest automatically.
+PackPulseMod expects a JSON manifest with file paths, download URLs, SHA-256 hashes, and an optional `delete` list for files that should be removed explicitly. The repository includes scripts that can generate and deploy this manifest automatically.
 
 Example script workflow:
 
@@ -99,7 +100,7 @@ HTTPS with domain and Let's Encrypt:
 sudo ./scripts/deploy_https_letsencrypt.sh --domain files.example.com --email you@example.com
 ```
 
-After changing your pack files, run the same deploy script again.
+After changing your pack files, run the same deploy script again. If a previously published file disappears from the server pack, the generator adds it to `delete`, so clients can remove old renamed mods without enabling broad stale-file cleanup.
 
 ## Notes
 
@@ -126,8 +127,9 @@ PackPulseMod **не привязан к конкретному серверу**.
 - Красивые названия файлов без `.jar`, `.zip`, `.txt` и других расширений
 - Кнопка `Скачать всё`
 - Поддержка HTTP и HTTPS ссылок на manifest
+- Безопасное явное удаление через список `delete` в manifest
 - Опциональное удаление устаревших файлов, которых больше нет в manifest
-- Закрытие Minecraft после обновления `.jar`-модов, если нужен перезапуск
+- Экран перезапуска после обновления `.jar`-модов вместо мгновенного закрытия Minecraft
 
 ## Поддерживаемые Сборки
 
@@ -182,7 +184,7 @@ server-pack/
 
 ## Manifest
 
-PackPulseMod ожидает JSON manifest с путями файлов, ссылками для скачивания и SHA-256 хэшами. В репозитории есть скрипты, которые могут автоматически создать manifest и развернуть файлы на сервере.
+PackPulseMod ожидает JSON manifest с путями файлов, ссылками для скачивания, SHA-256 хэшами и опциональным списком `delete` для явного удаления файлов. В репозитории есть скрипты, которые могут автоматически создать manifest и развернуть файлы на сервере.
 
 Пример:
 
@@ -208,7 +210,7 @@ HTTPS через домен и Let's Encrypt:
 sudo ./scripts/deploy_https_letsencrypt.sh --domain files.example.com --email you@example.com
 ```
 
-После изменения файлов сборки просто запусти тот же deploy-скрипт снова.
+После изменения файлов сборки просто запусти тот же deploy-скрипт снова. Если ранее опубликованный файл исчез из серверной сборки, генератор добавит его в `delete`, поэтому клиенты смогут удалить старые переименованные моды без включения грубой очистки всех лишних файлов.
 
 ## Примечания
 

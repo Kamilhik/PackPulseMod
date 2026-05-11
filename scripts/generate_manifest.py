@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ALLOWED_ROOTS = ("mods", "config", "resourcepacks", "shaderpacks")
+STATE_FILE_NAME = ".manifest-state.json"
 
 
 def sha256_file(file_path: Path) -> str:
@@ -60,6 +61,28 @@ def collect_files(pack_root: Path, base_url: str) -> list[dict[str, str]]:
     return files
 
 
+def load_known_paths(state_path: Path) -> set[str]:
+    if not state_path.is_file():
+        return set()
+
+    try:
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+
+    paths = state.get("knownPaths", [])
+    if not isinstance(paths, list):
+        return set()
+    return {path for path in paths if isinstance(path, str)}
+
+
+def save_known_paths(state_path: Path, known_paths: set[str]) -> None:
+    state_path.write_text(
+        json.dumps({"knownPaths": sorted(known_paths)}, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate PackPulseMod manifest.json")
     parser.add_argument("--pack-root", required=True, help="Folder with mods/config/resourcepacks/shaderpacks")
@@ -83,6 +106,12 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     files = collect_files(pack_root, args.base_url)
+    current_paths = {item["path"] for item in files}
+    state_path = output_path.parent / STATE_FILE_NAME
+    known_paths = load_known_paths(state_path)
+    delete_paths = sorted(known_paths - current_paths)
+    save_known_paths(state_path, known_paths | current_paths)
+
     manifest = {
         "name": args.name,
         "version": args.version,
@@ -92,6 +121,7 @@ def main() -> None:
         "versionId": args.version_id,
         "profileName": args.profile_name,
         "files": files,
+        "delete": delete_paths,
     }
 
     with output_path.open("w", encoding="utf-8") as stream:
@@ -100,6 +130,7 @@ def main() -> None:
 
     print(f"Manifest generated: {output_path}")
     print(f"Files in manifest: {len(files)}")
+    print(f"Files marked for delete: {len(delete_paths)}")
 
 
 if __name__ == "__main__":

@@ -147,6 +147,12 @@ public final class PackSyncService {
             }
         }
 
+        int explicitlyRemoved = removeManifestDeletedFiles(manifest.delete());
+        removed += explicitlyRemoved;
+        if (explicitlyRemoved > 0) {
+            restartRequired = true;
+        }
+
         return new PackSyncResult(updated, removed, restartRequired);
     }
 
@@ -183,6 +189,23 @@ public final class PackSyncService {
         }
 
         return new UpdatePlan(toDownload);
+    }
+
+    private int removeManifestDeletedFiles(List<String> deletedPaths) throws IOException {
+        if (deletedPaths == null || deletedPaths.isEmpty()) {
+            return 0;
+        }
+
+        int removed = 0;
+        for (String path : deletedPaths) {
+            validateRelativePath(path);
+            Path destination = gameDir.resolve(path.replace("/", java.io.File.separator));
+            if (Files.deleteIfExists(destination)) {
+                removed++;
+                PackPulseRuntime.LOGGER.info("Removed deleted manifest file {}", path);
+            }
+        }
+        return removed;
     }
 
     private int removeStaleFiles(Set<String> expectedPaths) throws IOException {

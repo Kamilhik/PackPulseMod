@@ -10,7 +10,8 @@ public record PackManifest(
     String neoForgeVersion,
     String versionId,
     String profileName,
-    List<PackFileEntry> files
+    List<PackFileEntry> files,
+    List<String> delete
 ) {
 }
 
